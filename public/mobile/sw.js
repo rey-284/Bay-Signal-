@@ -1,42 +1,39 @@
-// BaySignal offline form service worker.
-// Caches the form's files on first load so the page reopens with Wi-Fi and data off.
-// Bump CACHE when any cached file changes.
+const CACHE = "baysignal-offline-v2";
+const ROOT = self.registration.scope;
+const ASSETS = ["./", "./index.html", "./form.css", "./app.js"].map(
+  (path) => new URL(path, ROOT).href,
+);
 
-var CACHE = "baysignal-offline-v1";
-var ASSETS = ["./", "./index.html", "./form.css", "./app.js"];
-
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then(function (cache) { return cache.addAll(ASSETS); })
+    caches.open(CACHE)
+      .then((cache) => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting()),
   );
-  self.skipWaiting();
 });
 
-self.addEventListener("activate", function (event) {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(function (keys) {
-      return Promise.all(
-        keys.filter(function (k) { return k.indexOf("baysignal-offline-") === 0 && k !== CACHE; })
-            .map(function (k) { return caches.delete(k); })
-      );
-    })
+    caches.keys()
+      .then((keys) => Promise.all(
+        keys
+          .filter((key) => key.startsWith("baysignal-offline-") && key !== CACHE)
+          .map((key) => caches.delete(key)),
+      ))
+      .then(() => self.clients.claim()),
   );
-  self.clients.claim();
 });
 
-// Cache first, then network; refresh the cache in the background when online.
-self.addEventListener("fetch", function (event) {
-  if (event.request.method !== "GET") return;
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  url.search = "";
+
+  if (event.request.method !== "GET" || !ASSETS.includes(url.href)) return;
+
   event.respondWith(
-    caches.match(event.request, { ignoreSearch: true }).then(function (cached) {
-      var network = fetch(event.request).then(function (response) {
-        if (response && response.ok) {
-          var copy = response.clone();
-          caches.open(CACHE).then(function (cache) { cache.put(event.request, copy); });
-        }
-        return response;
-      }).catch(function () { return cached; });
-      return cached || network;
-    })
+    caches.open(CACHE).then(async (cache) => {
+      const cached = await cache.match(url.href);
+      return cached || fetch(event.request);
+    }),
   );
 });

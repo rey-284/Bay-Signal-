@@ -4,29 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b3d5c" />
-  <title>BaySignal – Offline Request</title>
+  <title>BaySignal – Offline Requests and Alerts</title>
   <link rel="stylesheet" href="./form.css" />
 </head>
 <body>
   <main class="card">
     <header>
       <h1>📡 BaySignal</h1>
-      <p class="sub">Request help by text — works without Wi-Fi or mobile data.</p>
+      <p class="sub">Send requests by SMS and view alerts saved on this phone.</p>
       <p id="net" class="net" role="status"></p>
     </header>
 
+    <nav class="actions" aria-label="BaySignal views">
+      <button type="button" id="show_request" class="primary"
+        aria-controls="request" aria-pressed="true">Request Help</button>
+      <button type="button" id="show_alerts"
+        aria-controls="alerts_panel" aria-pressed="false">Alerts</button>
+    </nav>
+
     <form id="request" autocomplete="off" novalidate>
       <label for="zip_code">ZIP code</label>
-      <input id="zip_code" name="zip_code" inputmode="numeric" pattern="\d{5}" maxlength="5" placeholder="33620" required />
+      <input id="zip_code" name="zip_code" inputmode="numeric"
+        maxlength="5" placeholder="33620" required />
 
       <label for="street_address">Street address</label>
-      <input id="street_address" name="street_address" placeholder="123 Demo Lane" required />
+      <input id="street_address" name="street_address"
+        placeholder="123 Demo Lane" required />
 
       <label for="message">What do you need?</label>
-      <textarea id="message" name="message" rows="3" maxlength="300" placeholder="TEST: Need a phone charger." required></textarea>
+      <textarea id="message" name="message" rows="3" maxlength="300"
+        placeholder="TEST: Need a phone charger." required></textarea>
 
       <label for="relay_number">Send to (relay phone number)</label>
-      <input id="relay_number" name="relay_number" type="tel" placeholder="Number saved on this phone only" />
+      <input id="relay_number" name="relay_number" type="tel"
+        placeholder="Number saved on this phone only" />
 
       <p id="error" class="error" role="alert"></p>
 
@@ -40,10 +51,26 @@
         <button type="button" id="copy_message">Copy message</button>
       </div>
       <button type="button" id="clear" class="link">Clear draft</button>
-      <p id="saved" class="saved" aria-live="polite"></p>
+      <p id="saved" class="saved" role="status"></p>
     </form>
 
-    <a class="back" href="/">← Back to BaySignal</a>
+    <section id="alerts_panel" aria-labelledby="alerts_heading" hidden>
+      <h2 id="alerts_heading">Saved alerts</h2>
+      <p class="sub">Copy the received BaySignal text from Messages and paste it below.</p>
+
+      <form id="import_alert">
+        <label for="received_sms">Paste received SMS</label>
+        <textarea id="received_sms" rows="5" required
+          placeholder="BAYSIGNAL&#10;ZIP: 33620&#10;ADDRESS: 123 Demo Lane&#10;MESSAGE: TEST: Need a phone charger."></textarea>
+        <div class="actions">
+          <button type="submit" class="primary">Save alert</button>
+        </div>
+      </form>
+
+      <p id="alert_status" class="saved" role="status"></p>
+      <p id="empty_alerts" class="sub">No alerts saved yet.</p>
+      <div id="saved_alerts"></div>
+    </section>
   </main>
 
   <script src="./app.js"></script>
