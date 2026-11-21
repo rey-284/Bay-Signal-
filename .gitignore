@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vite/
+.venv/
+*.db
+*.sqlite
+*.sqlite3
