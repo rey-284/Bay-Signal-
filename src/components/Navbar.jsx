@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { Home, Radio, UserRound } from "lucide-react";
+import { Home, MessageSquareText, Radio, UserRound } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -12,6 +12,8 @@ export default function Navbar() {
         <NavLink to="/" end><Home size={18} /> <span>Home</span></NavLink>
         <NavLink to="/alerts"><Radio size={18} /> <span>Alerts</span></NavLink>
         <NavLink to="/profile"><UserRound size={18} /> <span>Profile</span></NavLink>
+        {/* Plain link: the offline form is a static page outside the React router. */}
+        <a href="/mobile/index.html"><MessageSquareText size={18} /> <span>Request help</span></a>
       </nav>
     </header>
   );
