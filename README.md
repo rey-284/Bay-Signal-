@@ -1,5 +1,23 @@
 # 📡 BaySignal
 
+## Run locally
+
+Install Node.js 24 or newer, then run:
+
+```sh
+npm ci
+npm start
+```
+
+Open http://localhost:4173. To test two participants, publish a post in a regular browser window, reply from a private window, and open Inbox in the original window.
+
+The local server saves posts and replies in `.local/community.sqlite`. The public demo uses its own database. Hurricane information and volunteer profiles are sample content. The offline SMS form is available from the Request Help page.
+
+[Live BaySignal demo](https://baysignal-community.jackykid.chatgpt.site)
+
+## Original prototype notes
+
+
 **Neighbor-to-neighbor emergency help that still works when the internet doesn't.**
 
 BaySignal is a three-hour HackJam prototype for a Hillsborough County pilot, built for the **Off the Grid** track. Someone without Wi-Fi or mobile data opens a cached offline form, drafts a help request, and sends it as a regular SMS. BaySignal matches the request to opted-in neighbors in the same ZIP code and tracks it on a live dashboard until someone responds.

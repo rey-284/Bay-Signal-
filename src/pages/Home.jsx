@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CloudLightning, PackageOpen, UsersRound, ArrowRight, CalendarClock, Phone } from "lucide-react";
+import { CloudLightning, PackageOpen, UsersRound, ArrowRight, Phone } from "lucide-react";
+import WeatherUpdates from "../components/WeatherUpdates";
 import ProfileCard from "../components/ProfileCard";
 import { sampleUsers } from "../data/sampleUsers";
 
@@ -10,7 +11,6 @@ export default function Home() {
     <div className="page home-page">
       <section className="hero">
         <div className="hero-copy">
-          <span className="demo-label">DEMONSTRATION DATA</span>
           <h1>BaySignal — Stay Connected. Stay Prepared.</h1>
           <p>Stay informed, share emergency resources, and assist neighbors during hurricanes and severe weather.</p>
           <button className="primary-button" onClick={() => setActiveSection("resources")}>
@@ -41,26 +41,7 @@ export default function Home() {
         </button>
       </section>
 
-      {activeSection === "hurricanes" && (
-        <section className="section-panel">
-          <div className="section-heading">
-            <div><span className="section-kicker">SAMPLE HURRICANE UPDATE</span><h2>Hurricane information</h2></div>
-            <CalendarClock size={22} />
-          </div>
-          <div className="hurricane-card">
-            <div className="hurricane-name">
-              <CloudLightning size={28} />
-              <div><span>Sample storm name</span><h3>Hurricane Bay Demo</h3></div>
-            </div>
-            <div className="hurricane-details">
-              <div><span>Location</span><strong>Gulf of Mexico</strong></div>
-              <div><span>Status</span><strong className="status-approved">Approaching</strong></div>
-              <div><span>Last updated</span><strong>Nov 21, 2026 · 8:00 AM</strong></div>
-            </div>
-          </div>
-          <p className="data-note">Fictional demonstration data only. This section is ready to connect to a live hurricane data API later.</p>
-        </section>
-      )}
+      {activeSection === "hurricanes" && <WeatherUpdates />}
 
       {activeSection === "resources" && (
         <section className="section-panel">

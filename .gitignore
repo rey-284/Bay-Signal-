@@ -12,3 +12,5 @@ __pycache__/
 *.sqlite
 *.sqlite3
 backend/baysignal.db
+
+.local/
