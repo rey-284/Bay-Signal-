@@ -35,12 +35,18 @@ BaySignal is a three-hour HackJam prototype for a Hillsborough County pilot, bui
 
 ```
 baysignal/
+├── public/
+│   ├── manifest.webmanifest
+│   └── sw.js
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── styles.css
+├── index.html
+├── package.json
+├── vite.config.js
 ├── app.py              # Flask relay + SQLite (serves the API and the dashboard)
 ├── requirements.txt    # Python dependencies
-├── dashboard.html      # Demo dashboard (alert list + demo controls)
-├── mobile/
-│   ├── index.html      # Offline request form
-│   └── sw.js           # Service worker that caches page assets
 ├── .gitignore          # Excludes .venv/ and the local database
 └── README.md
 ```
@@ -55,6 +61,22 @@ baysignal/
 - A phone with SMS to test the offline form
 
 ### Install and run
+
+For the React dashboard and offline request form:
+
+```bash
+npm install
+npm run dev
+```
+
+Create an optimized build with:
+
+```bash
+npm run build
+npm run preview
+```
+
+For the original Flask relay prototype:
 
 ```bash
 git clone <repo-clone-url>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b3d5c" />
+  <title>BaySignal – Offline Request</title>
+  <link rel="stylesheet" href="./form.css" />
+</head>
+<body>
+  <main class="card">
+    <header>
+      <h1>📡 BaySignal</h1>
+      <p class="sub">Request help by text — works without Wi-Fi or mobile data.</p>
+      <p id="net" class="net" role="status"></p>
+    </header>
+
+    <form id="request" autocomplete="off" novalidate>
+      <label for="zip_code">ZIP code</label>
+      <input id="zip_code" name="zip_code" inputmode="numeric" pattern="\d{5}" maxlength="5" placeholder="33620" required />
+
+      <label for="street_address">Street address</label>
+      <input id="street_address" name="street_address" placeholder="123 Demo Lane" required />
+
+      <label for="message">What do you need?</label>
+      <textarea id="message" name="message" rows="3" maxlength="300" placeholder="TEST: Need a phone charger." required></textarea>
+
+      <label for="relay_number">Send to (relay phone number)</label>
+      <input id="relay_number" name="relay_number" type="tel" placeholder="Number saved on this phone only" />
+
+      <p id="error" class="error" role="alert"></p>
+
+      <div class="preview-wrap">
+        <span class="preview-label">Text that will be sent</span>
+        <pre id="preview" class="preview"></pre>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="open_messages" class="primary">Open Messages</button>
+        <button type="button" id="copy_message">Copy message</button>
+      </div>
+      <button type="button" id="clear" class="link">Clear draft</button>
+      <p id="saved" class="saved" aria-live="polite"></p>
+    </form>
+
+    <a class="back" href="/">← Back to BaySignal</a>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
