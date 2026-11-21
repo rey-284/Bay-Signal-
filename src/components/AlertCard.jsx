@@ -15,7 +15,7 @@ export default function AlertCard({ alert }) {
         <h3>{alert.title}</h3>
         <p>{alert.description}</p>
         <div className="alert-location"><MapPin size={16} /> {alert.city} · ZIP {alert.zip}</div>
-        <span className="posted-by">Posted by {author?.name}</span>
+        {author && <span className="posted-by">Posted by {author.name}</span>}
       </Link>
       {author && (
         <Link className="view-alert" to={`/alerts/${alert.id}`} aria-label={`View ${alert.title}`}>
